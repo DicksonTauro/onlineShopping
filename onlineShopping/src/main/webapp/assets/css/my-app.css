@@ -47,3 +47,33 @@ body {
 		width: 100%;
 	}
 }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    
+     padding: 0px !important; 
+     margin-left: 0px !important; 
+     border: none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+
+    background: none !important;
+}
+.tableImage {
+	height:100px;
+	width:100px;
+}
+
+.productImage {
+	height:370px;
+	width:306px;
+}
+
+
+.error-msg-break {
+	  word-wrap: break-word;
+}
+
+.btn.disabled, .btn:disabled {
+	cursor: not-allowed;
+}

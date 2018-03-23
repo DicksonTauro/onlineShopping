@@ -26,6 +26,7 @@
 
 <script>
 	window.menu = '${title}';
+	window.contextRoot = '${contextRoot}'
 </script>
 
 <!-- Bootstrap core CSS -->
@@ -34,34 +35,63 @@
 <!-- Custom styles for this template -->
 <link href="${css}/my-app.css" rel="stylesheet">
 
+<%-- <link href="${css}/dataTables.bootstrap.css" rel="stylesheet"> --%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="${css}/dataTables.bootstrap4.css" rel="stylesheet">
+<link href="${css}/jquery.dataTables.css" rel="stylesheet">
+
 </head>
 
 <body>
-	<div class="wrapper">
+   
+   
+   	<div class="wrapper">
 		<!-- Navigation -->
 		<%@ include file="./shared/header.jsp"%>
 		<!-- Page Content -->
-		<div class="content">
-			<c:if test="${userClickHome == true }">
-				<%@ include file="home.jsp"%>
-			</c:if>
-			<c:if test="${userClickContact == true }">
-				<%@ include file="contact.jsp"%>
-			</c:if>
-			<c:if test="${userClickAbout == true }">
-				<%@ include file="about.jsp"%>
-			</c:if>
-		</div>
+		<div class="container">
+		
+					<div class="content">
+						<c:if test="${userClickHome == true }">
+							<%@ include file="home.jsp"%>
+						</c:if>
+						<c:if test="${userClickContact == true }">
+							<%@ include file="contact.jsp"%>
+						</c:if>
+						<c:if test="${userClickAbout == true }">
+							<%@ include file="about.jsp"%>
+						</c:if>
+						<c:if test="${userClickAllProducts == true }">
+							<%@ include file="listProduct.jsp"%>
+						</c:if>
+						<c:if test="${userClickCategoryProducts == true }">
+							<%@ include file="listProduct.jsp"%>
+						</c:if>
+						<c:if test="${userClickShowProduct == true }">
+							<%@ include file="product.jsp"%>
+						</c:if>
+					</div>
+
+				</div>
+
+		
+
 
 		<%@ include file="./shared/footer.jsp"%>
 		<!-- Footer -->
 
 	</div>
+   
+   
+   
+
 	<!-- Bootstrap core JavaScript -->
 	<script src="${js}/jquery.min.js"></script>
 	<script src="${js}/bootstrap.bundle.min.js"></script>
 	<script src="${js}/my-app.js"></script>
-
+	<script src="${js}/jquery.dataTables.js"></script>
+<%-- 	<script src="${js}/dataTables.bootstrap.js"></script> --%>
+    <script src="${js}/dataTables.bootstrap4.js"></script>
 </body>
 
 </html>
