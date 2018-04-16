@@ -15,6 +15,5 @@ public interface CategoryDAO {
 	public boolean updateCategory(Category category);
 	
 	public boolean removeCategory(Category category);
-	
 
 }

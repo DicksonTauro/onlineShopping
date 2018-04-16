@@ -70,6 +70,10 @@
 						<c:if test="${userClickShowProduct == true }">
 							<%@ include file="product.jsp"%>
 						</c:if>
+						<!-- Load only when user click manage product value set in ProductManagementController-->
+						<c:if test="${userClickManageProducts == true }">
+							<%@ include file="manageProducts.jsp"%>
+						</c:if>
 					</div>
 
 				</div>
@@ -90,6 +94,7 @@
 	<script src="${js}/bootstrap.bundle.min.js"></script>
 	<script src="${js}/my-app.js"></script>
 	<script src="${js}/jquery.dataTables.js"></script>
+	<script src="${js}/jquery.validate.js"></script>
 <%-- 	<script src="${js}/dataTables.bootstrap.js"></script> --%>
     <script src="${js}/dataTables.bootstrap4.js"></script>
 </body>

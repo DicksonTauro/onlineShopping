@@ -12,7 +12,6 @@ import com.jrdsi.onlineShoppingBackend.dao.ProductDAO;
 import com.jrdsi.onlineShoppingBackend.dto.Product;
 
 @Controller
-
 @RequestMapping("/json/data")
 public class JsonDataController {
 
@@ -21,9 +20,16 @@ public class JsonDataController {
 	
 	@RequestMapping("/all/products")
 	@ResponseBody
-	public List<Product> getAllProducts(){
+	public List<Product> getAllProducts() {
 		return productDAO.getActiveProducts();
 	}
+	
+	@RequestMapping("/admin/all/products")
+	@ResponseBody
+	public List<Product> getAllProductsForAdmin(){
+		return productDAO.getProductList();
+	}
+	
 	
 	@RequestMapping("/category/{categoryId}/products")
 	@ResponseBody

@@ -17,8 +17,10 @@ public class Category {
 	
 	private String description;
 	
-	@Column(name = "image_url")
-	private String imageUrl;
+	public Category(){
+		this.activeInd = true;
+	}
+	
 	
 	@Column(name = "active_ind")
 	private boolean activeInd;
@@ -47,14 +49,6 @@ public class Category {
 		this.description = description;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
 	public boolean getActiveInd() {
 		return activeInd;
 	}
@@ -65,11 +59,8 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", description=" + description + ", imageUrl=" + imageUrl
+		return "Category [id=" + id + ", name=" + name + ", description=" + description 
 				+ ", activeInd=" + activeInd + "]";
 	}
-	
-	
-	
 
 }

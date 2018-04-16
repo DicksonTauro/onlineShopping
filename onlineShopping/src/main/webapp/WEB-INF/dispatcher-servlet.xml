@@ -2,21 +2,21 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:wf="http://www.springframework.org/schema/webflow-config"
+
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
    http://www.springframework.org/schema/beans/spring-beans.xsd
    http://www.springframework.org/schema/context
    http://www.springframework.org/schema/context/spring-context.xsd
    http://www.springframework.org/schema/mvc
-   http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+   http://www.springframework.org/schema/webflow-config
+   http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd">
 
-	
+
 	<context:component-scan base-package="com.jrdsi.onlineShopping" />
-	<context:component-scan base-package="com.jrdsi.onlineShoppingBackend"/>
-	
-	
-	
-	
+	<context:component-scan base-package="com.jrdsi.onlineShoppingBackend" />
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -24,10 +24,78 @@
 		<property name="suffix" value=".jsp" />
 
 	</bean>
+	<!-- id must be multipartResolver -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>
 
 	<mvc:annotation-driven />
 	<mvc:resources location="/assets/" mapping="/resources/**" />
+
+
+	<!-- Web flow configuration -->
+
+	<!-- Entry point for the flow -->
+
+	<wf:flow-executor id="flowExecutor" flow-registry="flowRegistry" />
+
+
+	<wf:flow-registry id="flowRegistry" base-path="/WEB-INF/views/flows"
+		flow-builder-services="flowBuilderServices">
+		<wf:flow-location-pattern value="/**/*-flow.xml" />
+	</wf:flow-registry>
+
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	<!-- Flow buider service To resolve the view -->
+	<wf:flow-builder-services id="flowBuilderServices" validator="validator"
+		view-factory-creator="viewFactoryCreator" />
+
+
+	<!-- Create Spring MVC handler adapter called FlowHandlerAdapter It is the 
+		bridge between Dispatcher servlet and the flow executor -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+		<property name="flowExecutor" ref="flowExecutor" />
+	</bean>
+
+	<!-- Flow handler mapping helps Dispather servlet know to send folw request 
+		to the flow handler adapter -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<property name="flowRegistry" ref="flowRegistry"></property>
+		<property name="order" value="-1"></property>
+	</bean>
+
+	<!-- Add view factory creator bean -->
+
+	<bean class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator" id="viewFactoryCreator">
+		<property name="viewResolvers">
+			<list>
+				<ref bean="viewResolver"/>
+			</list>
+		</property>
+	</bean>
 	
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </beans>
