@@ -1,11 +1,18 @@
 package com.jrdsi.onlineShopping.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jrdsi.onlineShopping.exception.CategoryNotFoundException;
@@ -54,6 +61,31 @@ public class PageController {
 		ModelAndView mv = new  ModelAndView("page");
 		mv.addObject("title", "Contact us");
 		mv.addObject("userClickContact", true);
+		return mv;
+	}
+	
+	
+	//Access denied handler mapping for spring security
+	@RequestMapping("/access-denied")
+	public ModelAndView accessDenied(){
+		ModelAndView mv = new  ModelAndView("error");
+		mv.addObject("errorTitle", "No Permission");
+		mv.addObject("errorDescription", "UnAuthorised Access");
+		mv.addObject("tilte","403 - Access Denied");
+		return mv;
+	}
+	
+	@RequestMapping("/login")
+	public ModelAndView login(@RequestParam(required = false) String error ,@RequestParam(required = false) String logout){
+		ModelAndView mv = new  ModelAndView("login");
+		if(error != null){
+			mv.addObject("error","Invalid User Name or password");
+		}
+		
+		if(logout != null){
+			mv.addObject("logout","User has successfully logged out");
+		}
+		mv.addObject("title", "Login");
 		return mv;
 	}
 	
@@ -119,6 +151,24 @@ public class PageController {
 		mv.addObject("product", product);
 		mv.addObject("userClickShowProduct", true);
 		return mv;
+	}
+	
+	//For LogOUt
+	
+	@RequestMapping(value = "/perform-logout")
+	public String logout(HttpServletRequest request,HttpServletResponse response){
+		
+		//fetch the authentication object	
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		if(auth != null){
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+			
+		}
+		
+		
+		return "redirect:/login?logout";
 	}
 	
 	

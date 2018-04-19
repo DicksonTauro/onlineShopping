@@ -9,21 +9,33 @@
 		http://www.springframework.org/schema/security/spring-security.xsd">
 		
 		<context:component-scan base-package="com.jrdsi.onlineShoppingBackend" />
+		<http pattern="/resources/**" security="none"></http>
 
 	<http>
-		<intercept-url pattern="/**" access="hasAuthority('USER')" />
-		<form-login />
-		<logout />
+	    <!-- only admin access -->
+	    <intercept-url pattern="/manage/**" access="hasAuthority('ADMIN')"/>
+	      <!-- only registered user access -->
+	     <intercept-url pattern="/cart/**" access="hasAuthority('USER')"/>
+	   
+	   <!--  Other than user and admin-->
+	    <intercept-url pattern="/**" access="permitAll"/>
+		<!-- <intercept-url pattern="/**" access="hasAuthority('USER')" /> -->
+		
+		<form-login login-page="/login"/>
+		<access-denied-handler error-page="/access-denied"/>
 	</http>
+	
+	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
 	<authentication-manager>
 		<authentication-provider>
+		<password-encoder ref="passwordEncoder"/>
 		<jdbc-user-service data-source-ref="dataSource" 
 		users-by-username-query="select email, password, active_ind from users where email = ?"
-		authorities-by-username-query="select email,role from users where email = ?"
-		/>
+		authorities-by-username-query="select email,role from users where email = ?"/>
 		</authentication-provider>
 	</authentication-manager>
+	
 
 
 </beans:beans>

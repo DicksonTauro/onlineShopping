@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.jrdsi.onlineShopping.model.RegisterModel;
@@ -19,6 +20,8 @@ public class RegisterHandler implements Serializable {
 	@Autowired
 	private UserDAO userDAO;
 	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	/**
 	 * 
 	 */
@@ -45,6 +48,12 @@ public class RegisterHandler implements Serializable {
 			cart.setUser(user);
 			user.setCart(cart);
 		}
+		
+		//encode the password
+		user.setPassword(encoder.encode(user.getPassword()));
+		
+		//save the user
+		
 		
 		userDAO.addUser(user);
 		

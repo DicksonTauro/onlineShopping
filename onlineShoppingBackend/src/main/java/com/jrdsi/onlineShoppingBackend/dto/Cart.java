@@ -20,6 +20,14 @@ public class Cart {
 	@Column(name="grand_total")
 	private Double grandTotal;
 	
+	public Cart() {
+		super();
+		
+		this.cartLines = Integer.valueOf(0);
+		this.grandTotal = Double.valueOf(0);
+				
+	}
+
 	@Column(name="cart_lines")
 	private Integer cartLines;
 

@@ -42,6 +42,7 @@
 			</c:otherwise>
 		</c:choose>
 
+        <security:authorize access="hasAuthority('USER')">
 		<c:choose>
 			<c:when test="${product.quantity < 1}">
 				<a href="javascript:void(0)"
@@ -53,8 +54,12 @@
 			</c:otherwise>
 
 		</c:choose>
-
-
+       </security:authorize>
+       <security:authorize access="hasAuthority('ADMIN')">
+       
+       <a href="${contextRoot}/manage/${product.id}/product"
+					class="btn btn-success">Edit</a>
+       </security:authorize>
 		<a href="${contextRoot}/show/all/products" class="btn btn-primary">Back</a>
 
 

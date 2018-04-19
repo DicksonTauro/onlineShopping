@@ -91,13 +91,20 @@ if(table.length) {
 				var str = '';
 				str+= '<a href=" '+ window.contextRoot+'/show/'+data+'/product" class="btn btn-primary">View</i></a> &nbsp;';
 				
+				
+				if(userRole == 'ADMIN'){
+					str+='<a href="'+window.contextRoot+'/manage/'+data+'/product" class="btn btn-warning"> Edit </a>';
+				}
+				else{
+				
+				
 				if(row.quantity < 1){
 					str+='<a href="javascript:void(0)" class="btn btn-success disabled"><strike> Add to cart </strike> </a>';
 				}
 				else {
-					str+='<a href="'+window.contextRoot+'/cart/add/'+data+'/product" class="btn btn-success"> Add to cart </a>';
+						str+='<a href="'+window.contextRoot+'/cart/add/'+data+'/product" class="btn btn-success"> Add to cart </a>';
 				}
-				
+				}
 				return str;
 			}
 			
@@ -256,6 +263,48 @@ if(categoryForm.length){
 		}
 	})
 	
+}
+
+var loginForm  = $('#loginForm');
+
+if(loginForm.length){
+	loginForm.validate({
+		rules: {
+			username:{
+				required:true,
+				minlength:2
+			},
+			password:{
+				required:true
+			}
+		},
+		messages: {
+			username:{
+				required:'Please Please enter username !',
+				minlength:'The username should not be less than 2 charecters'
+			},
+			password:{
+				required:'Please enter password!'
+			}
+		},
+		errorElement:'em',
+		errorPlacement:function(error,element){
+			error.addClass('help-block');
+			error.insertAfter(element);
+		}
+	})
+	
+}
+
+//to get csrf token
+
+var token = $('meta[name="_csrf"]').attr('content');
+var header = $('meta[name="_csrf_header"]').attr('content');
+if( token.length > 0 && header.length >0){
+	// set the token header for the ajax request
+	$(document).ajaxSend(function(event,xhr,options){
+		xhr.setRequestHeader(header,token);
+	});
 }
 
 });

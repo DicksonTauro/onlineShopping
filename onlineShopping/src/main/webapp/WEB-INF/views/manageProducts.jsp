@@ -115,7 +115,8 @@
 		<h3>Available Products</h3>
 	</div>
 	<div class="col-md-12">
-		<div style="overflow: auto">
+		<div class="container-fluid">
+		<div class="table-responsive">
 			<table id="adminsProductTable"
 				class="table table-striped table-bordered">
 				<thead>
@@ -135,7 +136,7 @@
 
 
 			</table>
-
+        </div>
 		</div>
 
 
