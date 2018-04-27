@@ -8,6 +8,7 @@
 <spring:url var="css" value="/resources/css" />
 <spring:url var="js" value="/resources/js" />
 <spring:url var="fonts" value="/resources/fonts" />
+<spring:url var="images" value="/resources/images" />
 
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
@@ -75,6 +76,9 @@
 						<!-- Load only when user click manage product value set in ProductManagementController-->
 						<c:if test="${userClickManageProducts == true }">
 							<%@ include file="manageProducts.jsp"%>
+						</c:if>
+						<c:if test="${userClickShowCart == true }">
+							<%@ include file="cart.jsp"%>
 						</c:if>
 					</div>
 

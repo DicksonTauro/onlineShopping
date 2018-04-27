@@ -40,7 +40,7 @@
             </li>
               </security:authorize>
                <security:authorize access="isAuthenticated()">
-              <li class="nav-item dropdown" id="contact">
+              <li class="nav-item dropdown" id="userCart">
               <a class="btn btn-default dropdown-toggle" href="javascript:void(0)" id="dropDownMenu1" data-toggle="dropdown" >
                 ${userModel.fullName}
               </a>
@@ -49,7 +49,7 @@
               <security:authorize access="hasAuthority('USER')">
               <li>
               
-               <a href="${contextRoot}/cart" class="dropdown-item">
+               <a href="${contextRoot}/cart/show" class="dropdown-item">
                <span>Cart</span>
                <span class="badge badge-primary">${userModel.cart.cartLines}</span>
                - &#8377; ${ userModel.cart.grandTotal}

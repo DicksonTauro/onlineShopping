@@ -3,7 +3,9 @@ jQuery( document ).ready(function( $ ) {
 
 $(function(){ 
 	//solving the active menu problem
+	console.log(menu);
 	switch(menu) {
+	
 	
 	case 'About us':
 		console.log(menu);
@@ -22,6 +24,10 @@ $(function(){
 	case 'Manage Products':
 		$('#manageProducts').addClass('active');
 		break;
+	case 'User Cart':
+		$('#userCart').addClass('active');
+		console.log(menu);
+		break;	
 	default:
 		$('#productList').addClass('active');
 	    $("#a_"+menu).addClass('active');
@@ -306,5 +312,43 @@ if( token.length > 0 && header.length >0){
 		xhr.setRequestHeader(header,token);
 	});
 }
+
+$('button[name="refreshCart"]').click( function() {
+	  // fetch the cart line id
+	
+	var cartLineId = $(this).attr('value');
+	
+	console.log(cartLineId);
+	
+	var countElement = $('#count_'+cartLineId);
+	
+	var originalCount = countElement.attr('value');
+	
+	var currentCount = countElement.val();
+	
+	
+	
+	if(currentCount !== originalCount){
+		if(currentCount<1 || currentCount>3){
+			//reverting back to original count
+			countElement.val(originalCount);
+			
+			$('#error-infoModal').on('show.bs.modal', function (event) {
+				 var modal = $(this);
+				 modal.find('#error-infoModalLabel').text('Error');
+				 modal.find('#error-infoModal-body').text("Product count should be minimum 1 and maximum 3");
+			});
+			$('#error-infoModal').modal('show');
+		}
+		else {
+			var updateUrl = window.contextRoot+'/cart/'+cartLineId+'/update?count='+currentCount;
+			window.location.href =  updateUrl;
+		}
+		
+	}
+});
+
+
+
 
 });

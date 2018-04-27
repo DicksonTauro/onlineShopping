@@ -65,6 +65,12 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.2.15.Final</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.validation</groupId>
+					<artifactId>validation-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Spring Orm dependency -->
@@ -143,19 +149,11 @@
 			<version>2.0.1.Final</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator-annotation-processor -->
-
-
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.0.7.Final</version>
 		</dependency>
-
-
-
-
 
 	</dependencies>
 

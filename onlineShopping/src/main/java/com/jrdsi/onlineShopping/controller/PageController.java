@@ -157,17 +157,13 @@ public class PageController {
 	
 	@RequestMapping(value = "/perform-logout")
 	public String logout(HttpServletRequest request,HttpServletResponse response){
-		
 		//fetch the authentication object	
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		if(auth != null){
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 			
 		}
-		
-		
 		return "redirect:/login?logout";
 	}
 	

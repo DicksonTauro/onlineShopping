@@ -154,7 +154,23 @@ CREATE TABLE category
         Cart
         (id, cart_lines, grand_total, user_id) 
     values
-        (null, ?, ?, ?)		
+        (null, ?, ?, ?)		;
+        
+        
+        
+CREATE TABLE cart_line 
+  ( 
+     id            IDENTITY, 
+     cart_id       INT, 
+     total         DECIMAL(10, 2), 
+     product_id    INT, 
+     product_count INT, 
+     buying_price  DECIMAL(10, 2), 
+     active_ind    BOOLEAN, 
+     CONSTRAINT fk_cart_line_cart_id FOREIGN KEY (cart_id) REFERENCES cart (id), 
+     CONSTRAINT fk_cart_line_product_id FOREIGN KEY (product_id) REFERENCES  product(id), 
+     CONSTRAINT fk_cart_line_id PRIMARY KEY (id) 
+  );      
  
  
  

@@ -1,4 +1,4 @@
-/*!
+	/*!
  * Start Bootstrap - Shop Homepage (https://startbootstrap.com/template-overviews/shop-homepage)
  * Copyright 2013-2017 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-shop-homepage/blob/master/LICENSE)
@@ -135,5 +135,9 @@ input:checked + .slider:before {
 .table-responsive {
 	overflow-x:inherit; 
 }
+
+
+
+
 
 
