@@ -124,7 +124,7 @@ public class CartService {
 			
 			//check if the cart Lines has reached max count ie 3
 			
-			if(cartLine.getProductCount() < 3){
+			if(cartLine.getProductCount() < 3) {
 				//update product count for that cartLine
 				response = manageCartLine(cartLine.getId(), cartLine.getProductCount()+1);
 			}
